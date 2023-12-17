@@ -1,0 +1,75 @@
+---
+title: "module5"
+author: "Emiley Garcia-Zych"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Module 5. Getting Data into R
+
+install necessary packages.
+
+```{r}
+f <- file.choose()
+d <- read.table(f, header = TRUE, sep = "\t", stringsAsFactors = FALSE, fill = T)
+head(d)  # lists the first 6 lines of data
+```
+
+```{r}
+tail(d)
+```
+
+```{r}
+class(d)
+```
+
+## Loading Excel Files 
+
+```{r}
+require (readxl)
+```
+
+```{r}
+f <- file.choose()
+d <- read_excel(f, sheet = 1, col_names = TRUE)
+head (d)
+```
+
+```{r}
+str(d)
+```
+
+## Loading Files Stored On A Remote Server 
+
+```{r}
+library(curl)
+```
+
+```{r}
+f <- curl("https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/master/AN588_Fall23/CPDS-1960-2014-reduced.csv")
+d <- read.csv(f, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+head(d)
+
+```
+
+```{r}
+f <- curl("https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/master/AN588_Fall23/CPDS-1960-2014-reduced.txt")
+d <- read.table(f, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+head(d)
+```
+
+```{r}
+Sys.setenv(VROOM_CONNECTION_SIZE = 131072 * 2)
+library(readr)
+f <- "https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/master/AN588_Fall23/CPDS-1960-2014-reduced.csv"
+d <- read_csv(f, col_names = TRUE)
+```
+
+```{r}
+head(d)
+```
+
+```{r}
+f <- "https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/master/AN588_Fall23/CPDS-1960-2014-reduced.txt"
+d <- read_tsv(f, col_names = TRUE)
+```
